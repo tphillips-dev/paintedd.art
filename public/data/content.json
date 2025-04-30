@@ -1,0 +1,74 @@
+{
+  "manifesto": {
+    "title": "ARTIST'S MANIFESTO",
+    "content": "This is blood on canvas. Each piece born in chaos, destroyed in passion. We don't decorate walls - we document survival."
+  },
+  "socials": [
+    {
+      "icon": "fab fa-tiktok",
+      "url": "https://www.tiktok.com/@art2ash"
+    },
+    {
+      "icon": "fab fa-twitch",
+      "url": "https://www.twitch.tv/painted_d"
+    }
+  ],
+  "artCollections": [
+    {
+      "title": "Burned Archives",
+      "description": "Paintings that didn't survive the stream",
+      "image": "public/img/🔥/burned-collection.jpg"
+    },
+    {
+      "title": "Survivors Series",
+      "description": "Pieces rescued by the community",
+      "image": "public/img/💚/survivors-collection.jpg"
+    }
+  ],
+  "liveStreamSchedule": [
+    {
+      "title": "Wednesday Destruction",
+      "time": "20:00 GMT+2",
+      "platform": "Twitch & TikTok",
+      "description": "Weekly live painting ritual - creation or destruction decided by chat"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Why destroy unsold art?",
+      "answer": "It's a ritual of release - if a piece doesn't resonate enough to be saved, it becomes fuel for the next creation."
+    },
+    {
+      "question": "Do you ship internationally?",
+      "answer": "Yes, I ship worldwide. Shipping costs will vary depending on your location."
+    },
+    {
+      "question": "Can I rescue a painting after destruction?",
+      "answer": "No. Once the ritual starts, there's no going back."
+    },
+    {
+      "question": "What happens if I buy a painting mid-stream?",
+      "answer": "The destruction halts immediately. You'll watch me finish, and we'll arrange secure shipping."
+    },
+    {
+      "question": "Why not just sell all your work normally?",
+      "answer": "Commodification numbs art. This fire ritual keeps the process alive, vulnerable, and terrifyingly authentic."
+    }
+  ],
+  "communityGuidelines": {
+    "title": "Our Code",
+    "rules": [
+      "No unsolicited advice - only supportive presence",
+      "Respect the creative chaos",
+      "Trigger warnings must be self-policed"
+    ]
+  },
+  "seo": {
+    "pageTitles": {
+      "home": "art2ash | Live Art Rituals"
+    },
+    "metaDescriptions": {
+      "home": "Witness the creation/destruction cycle - South African artist merging oil, watercolor, and performance"
+    }
+  }
+}

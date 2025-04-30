@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>paintedd - Payment Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --void-black: #0A0A0A;
+            --artery-red: #D90429;
+            --canvas-white: #F8F9FA;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Rubik Mono One', sans-serif;
+            color: var(--canvas-white);
+            background: var(--void-black);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .portal-container {
+            max-width: 800px;
+            width: 100%;
+            border: 3px solid var(--artery-red);
+            background: rgba(10, 10, 10, 0.95);
+            box-shadow: 0 0 50px rgba(217,4,41,0.2);
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .ritual-header {
+            background: var(--artery-red);
+            padding: 1rem;
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+            margin: -1px -1px 2rem -1px;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .payment-method {
+            border: 2px solid rgba(217,4,41,0.3);
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .payment-method:hover {
+            border-color: var(--artery-red);
+            transform: translateY(-5px);
+        }
+
+        .payment-method i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--artery-red);
+        }
+
+        .portal-title {
+            font-size: 2.5rem;
+            margin: 2rem 0;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap');
+    </style>
+</head>
+<body>
+    <div class="portal-container">
+        <div class="ritual-header">
+            <h1>Payment Portals</h1>
+        </div>
+
+        <div class="portal-title">Choose Your Portal</div>
+
+        <div class="payment-grid">
+            <a href="https://ko-fi.com/paintedd" target="_blank" class="payment-method">
+                <i class="fas fa-mug-hot"></i>
+                <h3>Ko-fi</h3>
+                <p>ko-fi.com/paintedd</p>
+            </a>
+
+            <a href="https://paypal.me/paintdd" target="_blank" class="payment-method">
+                <i class="fab fa-paypal"></i>
+                <h3>PayPal</h3>
+                <p>paypal.me/paintdd</p>
+            </a>
+
+            <a href="https://revolut.me/paintedd" target="_blank" class="payment-method">
+                <i class="fa-solid fa-arrows-rotate"></i>
+                <h3>Revolut</h3>
+                <p>revolut.me/paintedd</p>
+            </a>
+        </div>
+
+        <div style="padding: 2rem; opacity: 0.8;">
+            <p>All sensitive information is handled by third-parties</p>
+        </div>
+    </div>
+
+    <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+    <script>
+        kofiWidgetOverlay.draw('paintedd', {
+            'type': 'floating-chat',
+            'floating-chat.donateButton.text': 'Save the Art',
+            'floating-chat.donateButton.background-color': '#D90429',
+            'floating-chat.donateButton.text-color': '#fff',
+            'floating-chat.placeholderText': 'Channel your message...'
+        });
+    </script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/29c25c094f.js" crossorigin="anonymous"></script>
+</body>
+</html>
