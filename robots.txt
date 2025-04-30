@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /overlays/
+Disallow: /overlay.html
+Disallow: /pay.html
+Disallow: /Readme.md
+Disallow: /public/
+Allow: /
+
+Sitemap: https://paintedd.art/sitemap.xml

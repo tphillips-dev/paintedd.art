@@ -7,10 +7,6 @@
     {
       "icon": "fab fa-tiktok",
       "url": "https://www.tiktok.com/@art2ash"
-    },
-    {
-      "icon": "fab fa-twitch",
-      "url": "https://www.twitch.tv/painted_d"
     }
   ],
   "artCollections": [
@@ -35,8 +31,8 @@
   ],
   "faq": [
     {
-      "question": "Why destroy unsold art?",
-      "answer": "It's a ritual of release - if a piece doesn't resonate enough to be saved, it becomes fuel for the next creation."
+      "question": "Why burn art?",
+      "answer": "If art doesn't resonate enough to be saved, it becomes fuel for the next creation."
     },
     {
       "question": "Do you ship internationally?",
@@ -44,23 +40,22 @@
     },
     {
       "question": "Can I rescue a painting after destruction?",
-      "answer": "No. Once the ritual starts, there's no going back."
+      "answer": "No. Once the burning starts, there's no going back."
     },
     {
       "question": "What happens if I buy a painting mid-stream?",
-      "answer": "The destruction halts immediately. You'll watch me finish, and we'll arrange secure shipping."
+      "answer": "The destruction halts immediately. I will finish the painting live, and we'll arrange for shipping."
     },
     {
       "question": "Why not just sell all your work normally?",
-      "answer": "Commodification numbs art. This fire ritual keeps the process alive, vulnerable, and terrifyingly authentic."
+      "answer": "The fire gives the art life, making it something that can die."
     }
   ],
   "communityGuidelines": {
     "title": "Our Code",
     "rules": [
       "No unsolicited advice - only supportive presence",
-      "Respect the creative chaos",
-      "Trigger warnings must be self-policed"
+      "Respect the creative chaos"
     ]
   },
   "seo": {

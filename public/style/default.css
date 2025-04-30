@@ -991,3 +991,117 @@ body {
     animation: none !important;
   }
 }
+
+.ash-grid-section {
+    padding: 3rem 1rem;
+    border-top: 2px dashed var(--artery-red);
+    background: linear-gradient(
+      45deg, 
+      var(--void-black) 30%, 
+      rgba(217, 4, 41, 0.03) 100%
+    );
+  }
+  
+  .ash-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  
+  .ash-cell {
+    aspect-ratio: 1.5;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid rgba(217, 4, 41, 0.3);
+    position: relative;
+    overflow: hidden;
+    transform: rotate(1deg);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    break-inside: avoid;
+  }
+  
+  .ash-cell:hover {
+    transform: rotate(0deg) scale(1.08);
+    box-shadow: 0 0 20px rgba(217, 4, 41, 0.4);
+    border-color: var(--artery-red);
+    z-index: 2;
+  }
+  
+  .ash-status {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(
+      to top,
+      rgba(10, 10, 10, 0.9) 60%,
+      transparent
+    );
+    color: var(--canvas-white);
+    padding: 1rem 0.5rem 0.5rem;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    text-align: center;
+    letter-spacing: 1px;
+    backdrop-filter: blur(2px);
+  }
+  
+  .burned { 
+    color: var(--artery-red);
+    text-shadow: 0 0 8px rgba(217, 4, 41, 0.3);
+  }
+  
+  .saved { 
+    color: #29d904;
+    text-shadow: 0 0 8px rgba(41, 217, 4, 0.3);
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 900px) {
+    .ash-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      max-width: 600px;
+    }
+  
+    .ash-cell {
+      aspect-ratio: 1.35;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .ash-grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      gap: 1.25rem;
+    }
+  
+    .ash-cell {
+      aspect-ratio: 1.6;
+      transform: rotate(0.5deg);
+    }
+  
+    .ash-cell:hover {
+      transform: rotate(0deg) scale(1.05);
+    }
+  
+    .ash-status {
+      font-size: 0.8rem;
+      padding: 1.25rem 0.5rem 0.75rem;
+    }
+  }
+  
+  @media (max-width: 400px) {
+    .ash-grid {
+      padding: 0;
+    }
+  
+    .ash-cell {
+      aspect-ratio: 1.4;
+      border-width: 1px;
+    }
+  }

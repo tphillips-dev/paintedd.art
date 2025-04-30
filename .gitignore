@@ -1,3 +1,4 @@
 folderStructureToText.ps1
-/plans/
-/overlays/
+/plans
+/overlays
+.vscode
