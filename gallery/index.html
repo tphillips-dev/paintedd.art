@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Art Gallery | Paintedd</title>
+    <link rel="stylesheet" href="/pallet/style/page-gallery.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      .selected-artwork {
+        outline: 3px solid #d90429 !important;
+        position: relative;
+      }
+
+      .selected-artwork::after {
+        content: "✓";
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 28px;
+        height: 28px;
+        background: #d90429;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="gallery-header">
+      <div class="header-content">
+        <div class="logo-container">
+          <a href="/" class="gallery-logo">
+            <div class="logo-icon">
+              <img src="/pallet/img/logo-circular.png" alt="Paintedd Logo" />
+            </div>
+            <div class="logo-text">Paintedd</div>
+          </a>
+        </div>
+
+        <div class="controls-container">
+          <div class="search-box">
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Search artworks..."
+              id="search-input"
+            />
+            <div class="search-icon">
+              <i class="fas fa-search"></i>
+            </div>
+          </div>
+
+          <div class="filter-toggle" id="filter-toggle">
+            <i class="fas fa-filter"></i>
+            <span>Filters</span>
+          </div>
+
+          <!-- Add this after the filter-toggle div -->
+          <div class="pixel-toggle" id="pixel-toggle">
+            <i class="fas fa-th-large"></i>
+            <span>Pixel View</span>
+          </div>
+        </div>
+
+        <div class="filters-container" id="filters-container">
+          <div class="filter-group">
+            <div class="filter-label">
+              <i class="fas fa-paint-brush"></i>
+              <span>Medium</span>
+            </div>
+            <select class="filter-select" id="medium-filter">
+              <option value="all">All mediums</option>
+              <option value="Acrylic">Acrylic</option>
+              <option value="Digital">Digital</option>
+              <option value="Watercolor">Watercolor</option>
+              <option value="Oil">Oil</option>
+              <option value="Mixed Media">Mixed Media</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-label">
+              <i class="fas fa-calendar"></i>
+              <span>Year</span>
+            </div>
+            <select class="filter-select" id="year-filter">
+              <option value="all">All years</option>
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+              <option value="2016">2016</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-label">
+              <i class="fas fa-sort"></i>
+              <span>Sort by</span>
+            </div>
+            <select class="sort-select" id="sort-select">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="title">Title A-Z</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="gallery-container">
+      <div class="art-grid" id="art-grid"></div>
+
+      <div class="loading" id="loading-indicator">
+        <div class="spinner"></div>
+      </div>
+
+      <div class="pagination" id="pagination"></div>
+    </main>
+
+    <div class="art-overlay" id="art-overlay">
+      <div class="overlay-header">
+        <div class="overlay-title" id="overlay-title"></div>
+        <div class="close-overlay" id="close-overlay">
+          <i class="fas fa-times"></i>
+        </div>
+        <div class="share-btn" id="share-btn">
+          <i class="fas fa-share-alt"></i>
+          <div class="share-tooltip">Copy link to artwork</div>
+        </div>
+      </div>
+
+      <div class="overlay-content">
+        <div class="artwork-container">
+          <div class="overlay-image-container">
+            <img
+              src=""
+              alt="Artwork"
+              class="overlay-image"
+              id="overlay-image"
+              loading="lazy"
+            />
+            <button class="view-detail-btn" id="view-detail-btn">
+              <i class="fas fa-expand"></i>
+              <span class="tooltip"></span>
+            </button>
+          </div>
+
+          <div class="overlay-meta">
+            <div class="meta-item">
+              <i class="fas fa-calendar"></i>
+              <span id="art-year"></span>
+            </div>
+            <div class="meta-item">
+              <i class="fas fa-paint-brush"></i>
+              <span id="art-medium"></span>
+            </div>
+          </div>
+
+          <div class="overlay-palette-container">
+            <div class="palette-label">
+              <i class="fas fa-palette"></i> Color Palette
+            </div>
+            <div class="overlay-palette" id="overlay-palette"></div>
+          </div>
+
+          <div class="comments-section">
+            <div class="comments-title">
+              <i class="fas fa-comments"></i> Community Reflections
+            </div>
+            <div class="comment-list" id="comment-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+      <div class="lightbox-content">
+        <img src="" alt="Artwork in detail" id="lightbox-image" />
+      </div>
+      <button class="close-lightbox" id="close-lightbox">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <script src="/pallet/script/page-gallery.js"></script>
+  </body>
+</html>
