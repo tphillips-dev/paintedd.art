@@ -845,7 +845,7 @@ function renderComments(artwork) {
     commentList.innerHTML = `
             <div class="no-comments">
                 <i class="fas fa-comment-slash"></i>
-                <p>No reflections yet. Be the first to share your thoughts!</p>
+                <p>No reflections yet</p>
             </div>
         `;
   }
