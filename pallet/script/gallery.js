@@ -8,12 +8,6 @@ const artMedium = document.getElementById("art-medium");
 const overlayPalette = document.getElementById("overlay-palette");
 const commentList = document.getElementById("comment-list");
 const closeOverlay = document.getElementById("close-overlay");
-const filterToggle = document.getElementById("filter-toggle");
-const filtersContainer = document.getElementById("filters-container");
-const searchInput = document.getElementById("search-input");
-const mediumFilter = document.getElementById("medium-filter");
-const yearFilter = document.getElementById("year-filter");
-const sortSelect = document.getElementById("sort-select");
 const paginationContainer = document.getElementById("pagination");
 const loadingIndicator = document.getElementById("loading-indicator");
 const shareBtn = document.getElementById("share-btn");
@@ -24,7 +18,6 @@ const closeLightbox = document.getElementById("close-lightbox");
 const overlayImageContainer = document.querySelector(
   ".overlay-image-container"
 );
-const pixelToggle = document.getElementById("pixel-toggle");
 
 // Create shared artworks container
 const sharedArtworksContainer = document.createElement("div");
@@ -101,7 +94,6 @@ const transparentPixel =
   "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
 let selectedArtworks = new Set();
 let currentRotation = 0;
-let isPixelView = false;
 let filteredArtworks = [];
 let sharedArtworkIds = [];
 
@@ -336,23 +328,33 @@ async function initGallery() {
     // Store shared artwork IDs for special handling
     sharedArtworkIds = [...urlState.selected];
 
-    galleryData = Object.entries(data.artworks)
-      .filter(([id, artwork]) => !artwork.hidden && !artwork.secret)
-      .map(([id, artwork]) => ({
-        id,
-        title: artwork.title || id,
-        year: artwork.year,
-        medium: artwork.medium,
+    // Convert new JSON structure to gallery-compatible format
+    galleryData = data.artworks.map((artwork) => {
+      // Helper function to find image URL by type
+      function getImageUrl(type) {
+        const imgObj = artwork.images.find((img) => img.type === type);
+        return imgObj ? imgObj.url : "";
+      }
+
+      return {
+        id: artwork.id,
+        title: artwork.title || artwork.id,
+        year: "",//artwork.year.toString(),
+        medium: "",//artwork.medium.charAt(0).toUpperCase() + artwork.medium.slice(1),
         palette: artwork.palette || [],
         tags: artwork.tags || [],
-        thumb: artwork.files.thumbnail || artwork.files.original,
-        pixel_small: artwork.files.pixel_small || artwork.files.thumbnail,
-        overlayImg: artwork.files.thumbnail_m || artwork.files.original,
-        originalImg: artwork.files.original,
-        commerce: artwork.commerce || {},
-        comments: [],
-        isSharedSelection: urlState.selected.has(id),
-      }));
+        thumb: getImageUrl("thumbnail"),
+        pixel_small: getImageUrl("thumbnail"),
+        overlayImg: getImageUrl("medium"),
+        originalImg: getImageUrl("original"),
+        commerce: {
+          original_available: artwork.trade?.original?.available || false,
+          prints_available: Object.keys(artwork.trade?.prints?.buy_links || {}).length > 0,
+          base_price: artwork.trade?.original?.price_usd || 0
+        },
+        comments: []
+      };
+    });
 
     // Handle shared selections
     if (selectedArtworks.size > 0) {
@@ -451,8 +453,8 @@ function renderSharedArtCards(artworks) {
     artCard.className = "art-card shared-artwork";
     artCard.dataset.id = artwork.id;
 
-    // Use pixel or regular thumbnail based on current view mode
-    const imageUrl = isPixelView ? artwork.pixel_small : artwork.thumb;
+    // Use thumbnail for all artworks
+    const imageUrl = artwork.thumb;
 
     const paletteHTML = artwork.palette
       .slice(0, 5)
@@ -464,11 +466,7 @@ function renderSharedArtCards(artworks) {
 
     artCard.innerHTML = `
             <div class="art-image-container">
-                <img src="${imageUrl}" alt="${
-      artwork.title
-    }" class="art-image" loading="lazy" data-regular="${
-      artwork.thumb
-    }" data-pixel="${artwork.pixel_small}">
+                <img src="${imageUrl}" alt="${artwork.title}" class="art-image" loading="lazy">
             </div>
             <div class="art-info">
                 <div class="art-title">${artwork.id}</div>
@@ -477,24 +475,11 @@ function renderSharedArtCards(artworks) {
                         <i class="fas fa-calendar"></i>
                         <span>${artwork.year}</span>
                     </div>
-                    <div class="art-medium">${
-                      artwork.medium.split(" ")[0]
-                    }</div>
+                    <div class="art-medium">${artwork.medium.split(" ")[0]}</div>
                 </div>
                 <div class="color-palette">${paletteHTML}</div>
             </div>
         `;
-
-    // Add hover effect for pixel view
-    if (isPixelView) {
-      const img = artCard.querySelector(".art-image");
-      artCard.addEventListener("mouseenter", () => {
-        img.src = img.dataset.regular;
-      });
-      artCard.addEventListener("mouseleave", () => {
-        img.src = img.dataset.pixel;
-      });
-    }
 
     // Add click event to open artwork
     artCard.addEventListener("click", (e) => {
@@ -516,8 +501,8 @@ function renderArtCards(artworks) {
     artCard.className = "art-card";
     artCard.dataset.id = artwork.id;
 
-    // Use pixel or regular thumbnail based on current view mode
-    const imageUrl = isPixelView ? artwork.pixel_small : artwork.thumb;
+    // Use thumbnail for all artworks
+    const imageUrl = artwork.thumb;
 
     const paletteHTML = artwork.palette
       .slice(0, 5)
@@ -529,11 +514,7 @@ function renderArtCards(artworks) {
 
     artCard.innerHTML = `
             <div class="art-image-container">
-                <img src="${imageUrl}" alt="${
-      artwork.title
-    }" class="art-image" loading="lazy" data-regular="${
-      artwork.thumb
-    }" data-pixel="${artwork.pixel_small}">
+                <img src="${imageUrl}" alt="${artwork.title}" class="art-image" loading="lazy">
             </div>
             <div class="art-info">
                 <div class="art-title">${artwork.id}</div>
@@ -542,24 +523,11 @@ function renderArtCards(artworks) {
                         <i class="fas fa-calendar"></i>
                         <span>${artwork.year}</span>
                     </div>
-                    <div class="art-medium">${
-                      artwork.medium.split(" ")[0]
-                    }</div>
+                    <div class="art-medium">${artwork.medium.split(" ")[0]}</div>
                 </div>
                 <div class="color-palette">${paletteHTML}</div>
             </div>
         `;
-
-    // Add hover effect for pixel view
-    if (isPixelView) {
-      const img = artCard.querySelector(".art-image");
-      artCard.addEventListener("mouseenter", () => {
-        img.src = img.dataset.regular;
-      });
-      artCard.addEventListener("mouseleave", () => {
-        img.src = img.dataset.pixel;
-      });
-    }
 
     artGrid.appendChild(artCard);
   });
@@ -660,7 +628,9 @@ function renderPagination(totalArtworks) {
 
 function updateGallery() {
   loadingIndicator.style.display = "flex";
-  filteredArtworks = filterArtworks(galleryData);
+
+  // Skip filtering since search/filters are disabled
+  filteredArtworks = galleryData;
 
   // Separate shared and non-shared artworks
   const sharedArtworks = filteredArtworks.filter((artwork) =>
@@ -845,7 +815,7 @@ function renderComments(artwork) {
     commentList.innerHTML = `
             <div class="no-comments">
                 <i class="fas fa-comment-slash"></i>
-                <p>No reflections yet</p>
+                <p>Coming Soon</p>
             </div>
         `;
   }
@@ -875,109 +845,9 @@ function closeArtworkOverlay() {
   });
 }
 
-// Filtering and Sorting
-function filterArtworks(artworks) {
-  const searchTerm = searchInput.value.toLowerCase();
-  const mediumValue = mediumFilter.value;
-  const yearValue = yearFilter.value;
-  const sortValue = sortSelect.value;
-
-  let filteredArt = [...artworks];
-
-  if (searchTerm) {
-    filteredArt = filteredArt.filter(
-      (artwork) =>
-        artwork.id.toLowerCase().includes(searchTerm) ||
-        (artwork.tags || []).some((tag) =>
-          tag.toLowerCase().includes(searchTerm)
-        ) ||
-        artwork.medium.toLowerCase().includes(searchTerm)
-    );
-  }
-
-  if (mediumValue !== "all") {
-    filteredArt = filteredArt.filter((artwork) =>
-      artwork.medium.includes(mediumValue)
-    );
-  }
-
-  if (yearValue !== "all") {
-    filteredArt = filteredArt.filter((artwork) => artwork.year === yearValue);
-  }
-
-  if (sortValue === "newest") {
-    filteredArt.sort((a, b) => {
-      const yearA = parseInt(a.year) || 0;
-      const yearB = parseInt(b.year) || 0;
-      return yearB - yearA || a.id.localeCompare(b.id);
-    });
-  } else if (sortValue === "oldest") {
-    filteredArt.sort((a, b) => {
-      const yearA = parseInt(a.year) || 0;
-      const yearB = parseInt(b.year) || 0;
-      return yearA - yearB || a.id.localeCompare(b.id);
-    });
-  } else if (sortValue === "title") {
-    filteredArt.sort((a, b) => a.id.localeCompare(b.id));
-  }
-
-  return filteredArt;
-}
-
-// Pixel View Toggle Function
-function togglePixelView() {
-  isPixelView = !isPixelView;
-
-  // Update the button state
-  if (pixelToggle) {
-    pixelToggle.classList.toggle("active", isPixelView);
-  }
-
-  // Update all thumbnails
-  document.querySelectorAll(".art-card").forEach((card) => {
-    const artworkId = card.dataset.id;
-    const artwork = galleryData.find((a) => a.id === artworkId);
-    if (artwork) {
-      const img = card.querySelector(".art-image");
-      const newSrc = isPixelView ? artwork.pixel_small : artwork.thumb;
-
-      // Only update if the source is actually different
-      if (img.src !== newSrc) {
-        img.src = newSrc;
-      }
-    }
-  });
-
-  // Save preference to localStorage
-  localStorage.setItem("pixelView", isPixelView);
-}
-
 // Event Listeners
 function setupEventListeners() {
   closeOverlay.addEventListener("click", closeArtworkOverlay);
-  filterToggle.addEventListener("click", () => {
-    filtersContainer.classList.toggle("active");
-  });
-
-  searchInput.addEventListener("input", () => {
-    currentPage = 1;
-    updateGallery();
-  });
-
-  mediumFilter.addEventListener("change", () => {
-    currentPage = 1;
-    updateGallery();
-  });
-
-  yearFilter.addEventListener("change", () => {
-    currentPage = 1;
-    updateGallery();
-  });
-
-  sortSelect.addEventListener("change", () => {
-    currentPage = 1;
-    updateGallery();
-  });
 
   shareBtn.addEventListener("click", () => {
     const state = URLManager.parse();
@@ -1088,11 +958,6 @@ function setupEventListeners() {
     removalUtility.style.opacity = "";
   });
 
-  // Add pixel toggle event listener
-  if (pixelToggle) {
-    pixelToggle.addEventListener("click", togglePixelView);
-  }
-
   document.getElementById("share-list-btn").addEventListener("click", () => {
     if (removalIds.length === 0) return;
 
@@ -1130,12 +995,6 @@ function setupEventListeners() {
 
 // Initialize Gallery
 document.addEventListener("DOMContentLoaded", () => {
-  // Load pixel view preference from localStorage
-  isPixelView = localStorage.getItem("pixelView") === "true";
-  if (pixelToggle && isPixelView) {
-    pixelToggle.classList.add("active");
-  }
-
   initGallery();
   setupEventListeners();
 });
