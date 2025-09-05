@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Paintedd - A vibrant digital gallery and creative community space for art lovers and creative souls.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Paintedd Art">
     <title>Paintedd | Artist</title>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="/pallet/img/logo-circular.png" type="image/png">
     <style>
@@ -13,6 +14,7 @@
             --primary-turquoise: #00d9bf;
             --primary-fuchsia: #e725e7;
             --primary-yellow: #e8cf00;
+            --primary-green: #25D366; /* WhatsApp color */
             --primary-black: #0a0a0a;
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.2);
@@ -24,6 +26,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -34,9 +37,10 @@
             min-height: 100vh;
             position: relative;
             cursor: default;
+            touch-action: manipulation;
         }
 
-        /* Abstract background with moving particles */
+        /* Optimized particles */
         .background {
             position: fixed;
             top: 0;
@@ -45,6 +49,7 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
+            pointer-events: none;
         }
 
         .particle {
@@ -52,24 +57,13 @@
             border-radius: 50%;
             opacity: 0.3;
             animation: floatParticle 15s infinite linear;
+            transform: translateZ(0);
+            will-change: transform;
         }
 
         @keyframes floatParticle {
-            0% {
-                transform: translateY(0) translateX(0);
-            }
-            25% {
-                transform: translateY(-25px) translateX(15px);
-            }
-            50% {
-                transform: translateY(-50px) translateX(0);
-            }
-            75% {
-                transform: translateY(-25px) translateX(-15px);
-            }
-            100% {
-                transform: translateY(0) translateX(0);
-            }
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-50px) translateX(15px); }
         }
 
         .container {
@@ -78,19 +72,19 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            padding: 2rem 1.5rem;
+            padding: 1.5rem 1rem;
             position: relative;
             z-index: 2;
-            gap: 2.5rem;
+            gap: 2rem;
         }
 
-        /* Logo with geometric shapes */
+        /* Logo */
         .logo-wrapper {
             position: relative;
             width: 35vmin;
             height: 35vmin;
-            max-width: 220px;
-            max-height: 220px;
+            max-width: 200px;
+            max-height: 200px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -105,6 +99,7 @@
             background: linear-gradient(135deg, var(--primary-red), var(--primary-turquoise));
             animation: morph 8s ease-in-out infinite;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            transform: translateZ(0);
         }
 
         .logo-geometric:nth-child(2) {
@@ -140,25 +135,17 @@
         }
 
         @keyframes morph {
-            0% {
-                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            }
-            33% {
-                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            }
-            66% {
-                border-radius: 70% 30% 50% 50% / 30% 70% 30% 70%;
-            }
-            100% {
-                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            }
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            33% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            66% { border-radius: 70% 30% 50% 50% / 30% 70% 30% 70%; }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
         }
 
         /* Navigation Options */
         .nav-options {
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1rem;
             width: 100%;
             max-width: 380px;
         }
@@ -168,13 +155,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.4rem 2rem;
+            padding: 1.2rem;
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(15px);
             border-radius: 18px;
             text-decoration: none;
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 500;
             transition: all var(--transition-fast);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -211,16 +198,22 @@
             box-shadow: 0 15px 30px rgba(0, 217, 191, 0.25);
         }
 
+        .nav-option:nth-child(3):hover {
+            background: rgba(37, 211, 102, 0.1); /* WhatsApp green */
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.25);
+        }
+
         .nav-icon {
             margin-right: 0.8rem;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
         }
 
         /* Social Links */
         .social-container {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 0.8rem;
             width: 100%;
             max-width: 500px;
             padding: 0.5rem;
@@ -231,12 +224,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 50px;
+            width: 44px;
+            height: 44px;
             border-radius: 14px;
             background: rgba(255, 255, 255, 0.03);
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             transition: all var(--transition-fast);
             border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(12px);
@@ -249,42 +242,30 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .social-icon:nth-child(1):hover { background: rgba(0, 0, 0, 0.3); color: #e1306c; } /* TikTok */
-        .social-icon:nth-child(2):hover { background: rgba(0, 0, 0, 0.3); color: #6364ff; } /* Mastodon */
-        .social-icon:nth-child(3):hover { background: rgba(0, 0, 0, 0.3); color: #ff0000; } /* YouTube */
+        .social-icon[href*="tiktok"]:hover { color: #e1306c; }
+        .social-icon[href*="instagram"]:hover { color: #e4405f; }
+        .social-icon[href*="mastodon"]:hover { color: #6364ff; }
+        .social-icon[href*="youtube"]:hover { color: #ff0000; }
+        .social-icon[href*="whatsapp"]:hover { color: #25D366; }
 
         /* Growing message */
         .growing-message {
             user-select: none;
             text-align: center;
-            font-size: 1rem;
+            font-size: 0.9rem;
             opacity: 0.7;
             font-weight: 300;
-            padding: 0.2rem 1.5rem;
+            padding: 0.8rem 1.2rem;
             border-radius: 14px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
+            max-width: 90%;
         }
 
-        .growing-message::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            transition: left 0.7s ease;
-        }
-
-        .growing-message:hover::before {
-            left: 100%;
-        }
-
-        /* Heart animation styles */
+        /* Heart animation */
         .heart-animation {
             position: fixed;
             pointer-events: none;
@@ -293,21 +274,12 @@
             color: var(--primary-fuchsia);
             font-size: 1.8rem;
             text-shadow: 0 0 10px rgba(231, 37, 231, 0.7);
+            transform: translateZ(0);
         }
 
         @keyframes heartFloat {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(0.8);
-            }
-            50% {
-                opacity: 0.8;
-                transform: translate(0, -40px) scale(1.2);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(0, -80px) scale(0.5);
-            }
+            0% { opacity: 1; transform: translate(0, 0) scale(0.8); }
+            100% { opacity: 0; transform: translate(0, -80px) scale(0.5); }
         }
 
         /* Loading indicator */
@@ -328,17 +300,13 @@
             transform: scaleX(1);
         }
 
-        /* Emoji animation for easter egg */
-        .floating-emoji {
-            position: fixed;
-            pointer-events: none;
-            z-index: 5;
-            font-size: 1.5rem;
-            user-select: none;
-        }
-
         /* Mobile optimizations */
         @media (max-width: 768px) {
+            .container {
+                gap: 1.5rem;
+                padding: 1rem;
+            }
+
             .logo-wrapper {
                 width: 30vmin;
                 height: 30vmin;
@@ -346,55 +314,39 @@
 
             .nav-options {
                 max-width: 320px;
+                gap: 0.8rem;
             }
 
             .nav-option {
-                padding: 1.2rem;
-                font-size: 1.1rem;
-            }
-
-            .nav-icon {
-                font-size: 1.2rem;
+                padding: 1rem;
+                font-size: 1rem;
             }
 
             .social-container {
-                gap: 0.8rem;
-                padding: 0.5rem;
+                gap: 0.7rem;
             }
 
             .social-icon {
-                width: 44px;
-                height: 44px;
-                font-size: 1.1rem;
+                width: 42px;
+                height: 42px;
+                font-size: 1rem;
             }
         }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 1.5rem 1rem;
-                gap: 2rem;
-            }
-
-            .social-container {
-                gap: 0.6rem;
-            }
-
-            .social-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
+            .nav-options {
+                max-width: 280px;
             }
 
             .growing-message {
-                font-size: 0.9rem;
-                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+                padding: 0.7rem 1rem;
             }
         }
 
-        .disabled {
-            cursor: not-allowed;
-            pointer-events: none;
-            opacity: 0.5;
+        /* WhatsApp chat button */
+        .whatsapp-chat {
+            background: rgba(37, 211, 102, 0.05);
         }
     </style>
 </head>
@@ -407,7 +359,7 @@
             <div class="logo-geometric"></div>
             <div class="logo-geometric"></div>
             <div class="logo-geometric"></div>
-            <img src="/pallet/img/logo-circular.png" alt="Paintedd Logo" class="logo-main">
+            <img src="/pallet/img/logo-circular.png" alt="Paintedd Logo" class="logo-main" loading="eager">
         </div>
 
         <div class="nav-options">
@@ -416,10 +368,15 @@
                 <span>Gallery</span>
             </a>
 
-            <!-- <a href="/catalogue/" class="nav-option disabled" data-color="turquoise">
-                <i class="fas fa-book-open nav-icon"></i>
-                <span>Catalogue</span>
-            </a> -->
+            <a href="mailto:official.painted.d@gmail.com" class="nav-option email-contact" data-color="fuchsia">
+                <i class="fas fa-envelope nav-icon"></i>
+                <span>Email Me</span>
+            </a>
+
+            <a href="https://wa.me/27799243664" class="nav-option whatsapp-chat" data-color="green">
+                <i class="fab fa-whatsapp nav-icon"></i>
+                <span>Chat on WhatsApp</span>
+            </a>
         </div>
 
         <div class="social-container">
@@ -444,163 +401,62 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Optimized DOM references
             const loader = document.getElementById('loader');
-            const navOptions = document.querySelectorAll('.nav-option');
             const logoWrapper = document.getElementById('logo-wrapper');
-            const socialIcons = document.querySelectorAll('.social-icon');
             const background = document.getElementById('background');
 
-            // Create background particles
+            // Simplified particle creation
             function createParticles() {
+                const particles = document.createDocumentFragment();
                 const colors = ['#d90429', '#00d9bf', '#e725e7', '#e8cf00'];
-                for (let i = 0; i < 25; i++) {
+
+                for (let i = 0; i < 15; i++) {
                     const particle = document.createElement('div');
-                    particle.classList.add('particle');
+                    particle.className = 'particle';
 
-                    const size = Math.random() * 20 + 5;
-                    particle.style.width = `${size}px`;
-                    particle.style.height = `${size}px`;
+                    const size = Math.random() * 15 + 5;
+                    particle.style.cssText = `
+                        width: ${size}px;
+                        height: ${size}px;
+                        background: ${colors[Math.floor(Math.random() * colors.length)]};
+                        left: ${Math.random() * 100}%;
+                        top: ${Math.random() * 100}%;
+                        animation-duration: ${Math.random() * 15 + 10}s;
+                        animation-delay: -${Math.random() * 15}s;
+                    `;
 
-                    const color = colors[Math.floor(Math.random() * colors.length)];
-                    particle.style.background = color;
-
-                    particle.style.left = `${Math.random() * 100}%`;
-                    particle.style.top = `${Math.random() * 100}%`;
-
-                    particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
-                    particle.style.animationDelay = `-${Math.random() * 20}s`;
-
-                    background.appendChild(particle);
+                    particles.appendChild(particle);
                 }
+                background.appendChild(particles);
             }
 
             createParticles();
 
-            // Heart creation function
-            function createHeart(x, y) {
-                const heart = document.createElement("div");
-                heart.className = "heart-animation";
-                heart.style.left = `${x}px`;
-                heart.style.top = `${y}px`;
-                heart.innerHTML = '<i class="fas fa-heart"></i>';
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 1200);
+            // Deferred animations
+            setTimeout(() => {
+                document.querySelectorAll('.logo-geometric').forEach(el => {
+                    el.style.animationPlayState = 'running';
+                });
+            }, 300);
+
+            // Contact button handler
+            document.querySelector('.email-contact').addEventListener('click', (e) => {
+                e.preventDefault();
+                location.href = 'mailto:official.painted.d@gmail.com';
+            });
+
+            // Mobile optimizations
+            if ('ontouchstart' in window) {
+                document.documentElement.classList.add('touch-device');
             }
 
-            // Add click event to document for hearts (excluding interactive elements)
-            document.addEventListener('click', (e) => {
-                // Check if the click was on an interactive element
-                const isInteractive = e.target.closest('.nav-option') || 
-                                     e.target.closest('.social-icon') || 
-                                     e.target.closest('#logo-wrapper');
-
-                if (!isInteractive) {
-                    createHeart(e.clientX - 15, e.clientY - 15);
+            // WhatsApp redirect confirmation
+            document.querySelector('.whatsapp-chat').addEventListener('click', (e) => {
+                if (!confirm('Open WhatsApp to chat with us?')) {
+                    e.preventDefault();
                 }
             });
-
-            // Easter egg: Click logo multiple times for a surprise
-            let logoClickCount = 0;
-            let logoClickTimeout;
-
-            logoWrapper.addEventListener('click', () => {
-                logoClickCount++;
-
-                // Clear previous timeout
-                if (logoClickTimeout) clearTimeout(logoClickTimeout);
-
-                // Set timeout to reset counter
-                logoClickTimeout = setTimeout(() => {
-                    if (logoClickCount >= 5) {
-                        // Easter egg activation
-                        document.body.style.animation = 'colorFlash 0.5s';
-                        setTimeout(() => {
-                            document.body.style.animation = '';
-                        }, 500);
-
-                        // Create floating emojis
-                        for (let i = 0; i < 20; i++) {
-                            createFloatingEmoji();
-                        }
-                    }
-                    logoClickCount = 0;
-                }, 1000);
-            });
-
-            function createFloatingEmoji() {
-                const emojis = ['🎨', '✨', '🖌️', '🌟', '🔥', '💫'];
-                const emoji = document.createElement('div');
-                emoji.classList.add('floating-emoji');
-                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                emoji.style.left = Math.random() * window.innerWidth + 'px';
-                emoji.style.top = window.innerHeight + 20 + 'px';
-                emoji.style.fontSize = (Math.random() * 20 + 15) + 'px';
-                document.body.appendChild(emoji);
-
-                // Animate the emoji
-                const animation = emoji.animate([
-                    { transform: 'translateY(0)', opacity: 1 },
-                    { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
-                ], {
-                    duration: Math.random() * 3000 + 2000,
-                    easing: 'cubic-bezier(0.250, 0.460, 0.450, 0.940)'
-                });
-
-                animation.onfinish = () => {
-                    emoji.remove();
-                };
-            }
-
-            // Add loading indicator on navigation
-            navOptions.forEach(option => {
-                option.addEventListener('click', (e) => {
-                    if (!option.classList.contains('disabled')) {
-                        e.preventDefault();
-                        const href = option.getAttribute('href');
-
-                        // Show loading indicator
-                        loader.classList.add('active');
-
-                        // Navigate after a brief delay to show the animation
-                        setTimeout(() => {
-                            window.location.href = href;
-                        }, 800);
-                    }
-                });
-            });
-
-            // Add subtle hover effects for touch devices
-            const touchElements = [...navOptions, ...socialIcons];
-            touchElements.forEach(element => {
-                element.addEventListener('touchstart', () => {
-                    element.style.transform = 'translateY(2px)';
-                });
-
-                element.addEventListener('touchend', () => {
-                    element.style.transform = '';
-                });
-            });
-
-            // Prevent zoom on double-tap
-            let lastTouchEnd = 0;
-            document.addEventListener('touchend', (event) => {
-                const now = (new Date()).getTime();
-                if (now - lastTouchEnd <= 300) {
-                    event.preventDefault();
-                }
-                lastTouchEnd = now;
-            }, false);
-
-            // Add color flash animation for easter egg
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes colorFlash {
-                    0% { filter: hue-rotate(0deg) saturate(100%); }
-                    50% { filter: hue-rotate(180deg) saturate(200%); }
-                    100% { filter: hue-rotate(360deg) saturate(100%); }
-                }
-            `;
-            document.head.appendChild(style);
         });
     </script>
 </body>
