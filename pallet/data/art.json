@@ -126,47 +126,6 @@
       }
     },
     {
-      "id": "ART-7FEB61",
-      "hash": "7feb612ec4531f5b8e571949a128a613a12c30694fc76856c8cf078b282f300d",
-      "palette": [
-        "#442E2F",
-        "#61535C",
-        "#A05147",
-        "#887982",
-        "#ACAFC6"
-      ],
-      "images": [
-        {
-          "type": "thumbnail",
-          "url": "https://share.paintedd.art/V2XNBp101iqI/thumbnail_ART-7FEB61.webp"
-        },
-        {
-          "type": "medium",
-          "url": "https://share.paintedd.art/GHJPkTd0x9e3/medium_ART-7FEB61.webp"
-        },
-        {
-          "type": "original",
-          "url": "https://share.paintedd.art/WmVR0Mde1exY/original_ART-7FEB61.webp"
-        }
-      ],
-      "title": "",
-      "year": 2025,
-      "medium": "physical",
-      "rating": "SFW",
-      "tags": [],
-      "social_links": [],
-      "trade": {
-        "original": {
-          "available": false,
-          "price_zar": 0,
-          "price_usd": 0
-        },
-        "prints": {
-          "buy_links": {}
-        }
-      }
-    },
-    {
       "id": "ART-834D14",
       "hash": "834d14bb104467a19b1b5b877563a49a20d14cd8ca41d6ea1fb42bd7107a4466",
       "palette": [
