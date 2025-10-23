@@ -1,705 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>About | Paintedd</title>
-    <link rel="stylesheet" href="/pallet/style/default.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Cosmic Minimalist Design */
-        #cosmic-about {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2a 100%);
-            z-index: 20;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.8s ease;
-            overflow: auto;
-            padding: 1rem;
-        }
-
-        #cosmic-about.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* Constellation Background */
-        .constellation-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.3;
-        }
-
-        /* Navigation Elements */
-        .back-to-home {
-            position: fixed;
-            top: 1.5rem;
-            left: 1.5rem;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 11;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .back-to-home:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: scale(1.1);
-        }
-
-        .site-logo {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            overflow: hidden;
-            z-index: 10;
-            border: 2px solid rgba(0, 217, 191, 0.3);
-            box-shadow: 0 0 20px rgba(0, 217, 191, 0.2);
-        }
-
-        .site-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Main Content */
-        .cosmic-content {
-            max-width: 800px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            margin-top: 5rem;
-            padding: 1rem;
-            padding-bottom: 5rem; /* Extra space at bottom */
-        }
-
-        .artist-portrait-container {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            margin: 0 auto 2rem;
-        }
-
-        .artist-portrait {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--primary-turquoise);
-            box-shadow: 0 0 40px rgba(0, 217, 191, 0.3);
-        }
-
-        /* Bio Section */
-        .bio-section {
-            background: rgba(10, 10, 30, 0.4);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            border: 1px solid rgba(0, 217, 191, 0.1);
-            position: relative;
-            margin-bottom: 2rem;
-        }
-
-        .bio-section::before {
-            content: "";
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border-radius: 22px;
-            background: linear-gradient(45deg, 
-                transparent, 
-                rgba(0, 217, 191, 0.3), 
-                transparent);
-            z-index: -1;
-        }
-
-        .bio-title {
-            font-size: 1.8rem;
-            color: var(--primary-turquoise);
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .bio-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.85);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Cosmic Grid Elements */
-        .cosmic-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 3rem; /* Space before question */
-        }
-
-        .grid-cell {
-            background: rgba(10, 10, 20, 0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.4s ease;
-            min-height: 150px;
-        }
-
-        .grid-cell:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 217, 191, 0.2);
-            border-color: rgba(0, 217, 191, 0.3);
-        }
-
-        .cosmic-icon {
-            font-size: 2.2rem;
-            margin-bottom: 0.8rem;
-            color: var(--primary-turquoise);
-            text-shadow: 0 0 15px rgba(0, 217, 191, 0.5);
-        }
-
-        .cosmic-text {
-            font-size: 1.1rem;
-            text-align: center;
-            color: white;
-            font-weight: 300;
-            line-height: 1.4;
-        }
-
-        /* Hidden Question Box (now in content flow) */
-        .question-container {
-            max-width: 600px;
-            width: 100%;
-            margin: 0 auto;
-            transition: all 0.4s ease;
-        }
-
-        .question-box {
-            background: rgba(20, 20, 30, 0.3);
-            backdrop-filter: blur(5px);
-            border-radius: 30px;
-            padding: 1rem 1.5rem;
-            border: 1px solid rgba(0, 217, 191, 0.05);
-            text-align: center;
-            transition: all 0.4s ease;
-            cursor: text;
-        }
-
-        .question-box.active {
-            background: rgba(20, 20, 30, 0.7);
-            border: 1px solid rgba(0, 217, 191, 0.2);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .random-question {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.7);
-            text-align: center;
-            margin-bottom: 0;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.5rem;
-        }
-
-        .random-question::after {
-            content: "✎";
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            color: var(--primary-turquoise);
-        }
-
-        .question-box:hover .random-question::after {
-            opacity: 1;
-        }
-
-        .input-container {
-            height: 0;
-            overflow: hidden;
-            transition: height 0.4s ease;
-        }
-
-        .question-input {
-            width: 100%;
-            padding: 0;
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 1rem;
-            text-align: center;
-            outline: none;
-            transition: all 0.3s ease;
-            height: 40px;
-        }
-
-        .submit-container {
-            height: 0;
-            overflow: hidden;
-            transition: height 0.4s ease;
-            text-align: center;
-        }
-
-        .submit-btn {
-            background: transparent;
-            color: var(--primary-turquoise);
-            border: 1px solid var(--primary-turquoise);
-            padding: 0.4rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin-top: 0.8rem;
-            opacity: 0;
-            transform: translateY(10px);
-        }
-
-        .submit-btn.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .submit-btn:hover {
-            background: rgba(0, 217, 191, 0.1);
-            transform: scale(1.05);
-        }
-
-        .confirmation {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: var(--primary-turquoise);
-            color: #0a0a0a;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            font-weight: 600;
-            opacity: 0;
-            transition: all 0.4s ease;
-            z-index: 30;
-        }
-
-        .confirmation.visible {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        /* Mouse Trail */
-        .mouse-trail {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: rgba(0, 217, 191, 0.5);
-            pointer-events: none;
-            z-index: 10;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            mix-blend-mode: lighten;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .cosmic-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .artist-portrait {
-                width: 160px;
-                height: 160px;
-            }
-
-            .bio-title {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .cosmic-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .grid-cell {
-                min-height: 120px;
-                padding: 1rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Cosmic About Container -->
-    <div id="cosmic-about">
-        <!-- Constellation Background Layer -->
-        <canvas class="constellation-layer" id="constellation"></canvas>
-
-        <!-- Home Button -->
-        <div class="back-to-home">
-            <i class="fas fa-home"></i>
-        </div>
-
-        <!-- Site Logo -->
-        <div class="site-logo">
-            <img src="/pallet/img/logo-circular.png" alt="Paintedd Logo">
-        </div>
-
-        <!-- Main Content -->
-        <div class="cosmic-content">
-            <div class="artist-portrait-container">
-                <img src="https://storage.ko-fi.com/cdn/useruploads/b72623c9-2bd7-41b2-b5f1-010eff8f634b.png" 
-                     alt="The Artist" class="artist-portrait">
-            </div>
-
-            <div class="bio-section">
-                <div class="bio-title">Cosmic Creator</div>
-                <div class="bio-text">
-                    Paintedd channels chaos into form through intuitive digital and physical creation. 
-                    Each piece emerges from unplanned flow, where cosmic energy meets raw expression. 
-                    The artist embraces accidents as opportunities and constraints as creative fuel. 
-                    Work exists at the intersection of digital precision and organic imperfection.
-                </div>
-            </div>
-
-            <div class="cosmic-grid">
-                <div class="grid-cell">
-                    <div class="cosmic-icon">🕒</div>
-                    <div class="cosmic-text">Nocturnal creation</div>
-                </div>
-
-                <div class="grid-cell">
-                    <div class="cosmic-icon">🎨</div>
-                    <div class="cosmic-text">Digital & physical</div>
-                </div>
-
-                <div class="grid-cell">
-                    <div class="cosmic-icon">🧠</div>
-                    <div class="cosmic-text">Intuitive process</div>
-                </div>
-
-                <div class="grid-cell">
-                    <div class="cosmic-icon">🌓</div>
-                    <div class="cosmic-text">Always creating</div>
-                </div>
-
-                <div class="grid-cell">
-                    <div class="cosmic-icon">🔥</div>
-                    <div class="cosmic-text">Unplanned flow</div>
-                </div>
-
-                <div class="grid-cell">
-                    <div class="cosmic-icon">💫</div>
-                    <div class="cosmic-text">Cosmic energy</div>
-                </div>
-            </div>
-
-            <!-- Question Box now within content flow -->
-            <div class="question-container">
-                <div class="question-box" id="question-box">
-                    <div class="random-question" id="random-question">
-                        What color is your soul today?
-                    </div>
-                    <div class="input-container" id="input-container">
-                        <input type="text" class="question-input" 
-                               placeholder="Type your cosmic response..." 
-                               id="question-input"
-                               maxlength="180">
-                    </div>
-                    <div class="submit-container" id="submit-container">
-                        <button class="submit-btn" id="submit-btn">Release to the cosmos</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Confirmation Message -->
-        <div class="confirmation" id="confirmation">
-            Your message has been released to the cosmos
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About 🎨 Paintedd</title>
+    <link rel="stylesheet" href="/pallet/style/universal.css" />
+    <link rel="stylesheet" href="/about/pallet/style/about.css" />
+    <script src="/about/pallet/script/about.js" defer></script>
+    <script
+      src="https://kit.fontawesome.com/29c25c094f.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!--
+    ==========
+    Navigation
+    ==========
+    -->
+    <div class="top-nav">
+      <a href="/" class="nav-icon back-to-home" aria-label="Go Home" title="Go Home">
+        <i class="fas fa-home" aria-hidden="true"></i>
+      </a>
+      <div class="page-logo" title="Paintedd">
+        <img src="/pallet/img/logo-circular.png" alt="Paintedd Logo" />
+      </div>
     </div>
+    <!--
+    ============
+    Main Content
+    ============
+    -->
+    <main class="about-container">
+      <div class="about-title">
+        <h1>About</h1>
+        <p class="subtitle">
+          <span class="additional-info">
+            <i class="fa-solid fa-question" style="rotate: 180deg" aria-hidden="true"></i></span
+          >ntuitive Artist
+        </p>
+      </div>
 
-    <script>
-        // Initialize constellation background
-        function initConstellation() {
-            const canvas = document.getElementById('constellation');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+      <div class="artist-grid">
+        <!-- Artist Profile Card -->
+        <div class="about-card">
+          <div class="portrait-container">
+            <div class="portrait-frame">
+              <a href="https://ko-fi.com/paintedd" target="_blank" rel="noopener noreferrer" title="Visit Ko-fi Page">
+                <img
+                  src="https://storage.ko-fi.com/cdn/useruploads/b72623c9-2bd7-41b2-b5f1-010eff8f634b.png"
+                  alt="Freely Creative"
+                  class="portrait-img"
+                />
+              </a>
+            </div>
+          </div>
+          <div class="card-content">
+            <h2>Freely Creative</h2>
+            <p class="artist-title">Impulse Art</p>
+            <p class="artist-bio quote-emphis">
+              My <span class="uni-text-emphis">Art</span> emerges naturally
+              rather than being planned.<br />
+              The process is guided by feelings rather than rules.<br />
+            </p>
+          </div>
+          <div class="social-container">
+            <a
+              href="https://tiktok.com/@painted_d"
+              aria-label="TikTok"
+              class="social-icon"
+              ><i class="fab fa-tiktok"></i
+            ></a>
+            <a
+              href="https://youtube.com/@painted_d"
+              aria-label="YouTube"
+              class="social-icon"
+              ><i class="fab fa-youtube"></i
+            ></a>
+            <a
+              href="https://instagram.com/painted_d_art/"
+              aria-label="Instagram"
+              class="social-icon"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="https://mastodon.art/@paintedd" aria-label="Mastodon" class="social-icon"
+              ><i class="fab fa-mastodon"></i
+            ></a>
+          </div>
+        </div>
 
-            // Capricorn constellation points
-            const capricornPoints = [
-                {x: 0.2, y: 0.3}, {x: 0.25, y: 0.35}, {x: 0.3, y: 0.4}, 
-                {x: 0.35, y: 0.45}, {x: 0.4, y: 0.5}, {x: 0.45, y: 0.45},
-                {x: 0.5, y: 0.4}, {x: 0.55, y: 0.35}, {x: 0.6, y: 0.3}
-            ];
+        <!-- Attributes Card -->
+        <div class="about-card attributes-card">
+          <div class="section-header">
+            <h2 class="section-title">Creative Attributes</h2>
+            <p class="section-subtitle"></p>
+          </div>
 
-            // Draw stars
-            const stars = [];
-            for(let i = 0; i < 200; i++) {
-                stars.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 2,
-                    opacity: Math.random() * 0.5 + 0.1,
-                    speed: Math.random() * 0.05
-                });
-            }
-
-            function draw() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                // Draw stars
-                stars.forEach(star => {
-                    star.opacity += star.speed;
-                    if(star.opacity > 1 || star.opacity < 0.1) star.speed *= -1;
-
-                    ctx.beginPath();
-                    ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-                    ctx.fill();
-                });
-
-                // Draw constellation lines
-                ctx.strokeStyle = 'rgba(0, 217, 191, 0.15)';
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-
-                capricornPoints.forEach((pt, i) => {
-                    const x = pt.x * canvas.width;
-                    const y = pt.y * canvas.height;
-
-                    if(i === 0) {
-                        ctx.moveTo(x, y);
-                    } else {
-                        ctx.lineTo(x, y);
-                    }
-
-                    // Draw constellation points
-                    ctx.beginPath();
-                    ctx.arc(x, y, 2, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(0, 217, 191, 0.4)';
-                    ctx.fill();
-                });
-
-                ctx.stroke();
-
-                requestAnimationFrame(draw);
-            }
-
-            draw();
-
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            });
-        }
-
-        // Initialize mouse trail
-        function initMouseTrail() {
-            const trailElements = [];
-            const trailCount = 12;
-
-            // Create trail elements
-            for(let i = 0; i < trailCount; i++) {
-                const trail = document.createElement('div');
-                trail.className = 'mouse-trail';
-                trail.style.width = `${20 - i}px`;
-                trail.style.height = `${20 - i}px`;
-                trail.style.opacity = `${1 - (i/trailCount)}`;
-                document.body.appendChild(trail);
-                trailElements.push(trail);
-            }
-
-            let mouseX = 0;
-            let mouseY = 0;
-
-            // Update mouse position
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
-            // Animate trail
-            function animateTrail() {
-                let posX = mouseX;
-                let posY = mouseY;
-
-                trailElements.forEach((trail, i) => {
-                    trail.style.left = `${posX}px`;
-                    trail.style.top = `${posY}px`;
-                    trail.style.opacity = `${1 - (i/trailCount)}`;
-
-                    // Reduce size for next element
-                    const nextIndex = i + 1;
-                    if(nextIndex < trailElements.length) {
-                        posX += (mouseX - posX) * 0.3;
-                        posY += (mouseY - posY) * 0.3;
-                    }
-                });
-
-                requestAnimationFrame(animateTrail);
-            }
-
-            animateTrail();
-        }
-
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            initConstellation();
-
-            // Only init mouse trail on desktop
-            if(window.innerWidth > 768) {
-                initMouseTrail();
-            }
-
-            // Show about page
-            setTimeout(() => {
-                document.getElementById('cosmic-about').classList.add('visible');
-            }, 300);
-
-            // Back to home functionality
-            document.querySelector('.back-to-home').addEventListener('click', function() {
-                document.getElementById('cosmic-about').classList.remove('visible');
-                setTimeout(() => {
-                    window.history.back();
-                }, 800);
-            });
-
-            // Random questions
-            const questions = [
-                "What color is your soul today?",
-                "Create in daylight or darkness?",
-                "Digital or physical? Why?",
-                "Your favorite creative accident?",
-                "What art medium would you become?",
-                "Describe creativity in one word",
-                "Your spirit art tool?",
-                "What shape is your mind?",
-                "Favorite creation hour?",
-                "What sound inspires you?",
-                "If art was a taste?",
-                "Describe your creative energy",
-                "What texture inspires you?",
-                "Your creation ritual?"
-            ];
-
-            // Elements
-            const questionElement = document.getElementById('random-question');
-            const questionInput = document.getElementById('question-input');
-            const inputContainer = document.getElementById('input-container');
-            const submitContainer = document.getElementById('submit-container');
-            const submitBtn = document.getElementById('submit-btn');
-            const confirmation = document.getElementById('confirmation');
-            const questionBox = document.getElementById('question-box');
-
-            // Set random question on load
-            const randomIndex = Math.floor(Math.random() * questions.length);
-            questionElement.textContent = questions[randomIndex];
-
-            // Activate question box on click
-            questionBox.addEventListener('click', function(e) {
-                // Only activate if clicking the question text
-                if(e.target === questionElement || e.target === questionBox) {
-                    questionBox.classList.add('active');
-                    inputContainer.style.height = '40px';
-                    setTimeout(() => {
-                        questionInput.focus();
-                    }, 100);
-                }
-            });
-
-            // Show submit button when typing
-            questionInput.addEventListener('input', function() {
-                if(this.value.trim() !== '') {
-                    submitContainer.style.height = '40px';
-                    setTimeout(() => {
-                        submitBtn.classList.add('visible');
-                    }, 100);
-                } else {
-                    submitBtn.classList.remove('visible');
-                    setTimeout(() => {
-                        submitContainer.style.height = '0';
-                    }, 200);
-                }
-            });
-
-            // Submit functionality
-            submitBtn.addEventListener('click', function() {
-                if(questionInput.value.trim() !== '') {
-                    // Show confirmation
-                    confirmation.classList.add('visible');
-
-                    // Reset input
-                    questionInput.value = '';
-                    submitBtn.classList.remove('visible');
-                    submitContainer.style.height = '0';
-                    inputContainer.style.height = '0';
-                    questionBox.classList.remove('active');
-
-                    // Set new random question
-                    const newIndex = Math.floor(Math.random() * questions.length);
-                    questionElement.textContent = questions[newIndex];
-
-                    // Hide confirmation after delay
-                    setTimeout(() => {
-                        confirmation.classList.remove('visible');
-                    }, 3000);
-                }
-            });
-
-            // Close question box when clicking outside
-            document.addEventListener('click', function(e) {
-                if(!questionBox.contains(e.target) && questionBox.classList.contains('active')) {
-                    questionBox.classList.remove('active');
-                    inputContainer.style.height = '0';
-                    submitContainer.style.height = '0';
-                    submitBtn.classList.remove('visible');
-                }
-            });
-
-            // Submit on Enter key
-            questionInput.addEventListener('keydown', function(e) {
-                if(e.key === 'Enter' && this.value.trim() !== '') {
-                    submitBtn.click();
-                }
-            });
-        });
-    </script>
-</body>
+          <div class="attributes-grid">
+            <div class="attribute">
+              <div class="attribute-icon"><i class="fa-solid fa-moon" aria-hidden="true"></i></div>
+              <div class="attribute-text">
+                Nocturnal
+                <div class="small-text">
+                  Finding a special kind of peace and focus in the late hours
+                </div>
+              </div>
+            </div>
+            <div class="attribute">
+              <div class="attribute-icon">
+                <i class="fa-solid fa-cloud-bolt" aria-hidden="true"></i>
+              </div>
+              <div class="attribute-text">
+                Restless
+                <div class="small-text">
+                  Staying still creatively isn't really an option
+                </div>
+              </div>
+            </div>
+            <div class="attribute">
+              <div class="attribute-icon">
+                <i class="fa-solid fa-wand-sparkles" aria-hidden="true"></i>
+              </div>
+              <div class="attribute-text">
+                Experimental
+                <div class="small-text">
+                  It's all about playing with new materials and ideas.
+                </div>
+              </div>
+            </div>
+            <div class="attribute">
+              <div class="attribute-icon">
+                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+              </div>
+              <div class="attribute-text">
+                Eclectic
+                <div class="small-text">
+                  There's so much inspiration to gather from different places.
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>

@@ -3,8 +3,6 @@ const artGrid = document.getElementById("art-grid");
 const artOverlay = document.getElementById("art-overlay");
 const overlayTitle = document.getElementById("overlay-title");
 const overlayImage = document.getElementById("overlay-image");
-const artYear = document.getElementById("art-year");
-const artMedium = document.getElementById("art-medium");
 const overlayPalette = document.getElementById("overlay-palette");
 const commentList = document.getElementById("comment-list");
 const closeOverlay = document.getElementById("close-overlay");
@@ -339,8 +337,8 @@ async function initGallery() {
       return {
         id: artwork.id,
         title: artwork.title || artwork.id,
-        year: "",//artwork.year.toString(),
-        medium: "",//artwork.medium.charAt(0).toUpperCase() + artwork.medium.slice(1),
+        // year: "",//artwork.year.toString(),
+        // medium: "",//artwork.medium.charAt(0).toUpperCase() + artwork.medium.slice(1),
         palette: artwork.palette || [],
         tags: artwork.tags || [],
         thumb: getImageUrl("thumbnail"),
@@ -470,13 +468,7 @@ function renderSharedArtCards(artworks) {
             </div>
             <div class="art-info">
                 <div class="art-title">${artwork.id}</div>
-                <div class="art-meta">
-                    <div class="art-year">
-                        <i class="fas fa-calendar"></i>
-                        <span>${artwork.year}</span>
-                    </div>
-                    <div class="art-medium">${artwork.medium.split(" ")[0]}</div>
-                </div>
+
                 <div class="color-palette">${paletteHTML}</div>
             </div>
         `;
@@ -518,13 +510,7 @@ function renderArtCards(artworks) {
             </div>
             <div class="art-info">
                 <div class="art-title">${artwork.id}</div>
-                <div class="art-meta">
-                    <div class="art-year">
-                        <i class="fas fa-calendar"></i>
-                        <span>${artwork.year}</span>
-                    </div>
-                    <div class="art-medium">${artwork.medium.split(" ")[0]}</div>
-                </div>
+
                 <div class="color-palette">${paletteHTML}</div>
             </div>
         `;
@@ -699,8 +685,8 @@ function openArtworkOverlay(artworkId) {
 
   overlayImage.src = transparentPixel;
   overlayTitle.textContent = artwork.id;
-  artYear.textContent = artwork.year;
-  artMedium.textContent = artwork.medium;
+//   artYear.textContent = artwork.year;
+//   artMedium.textContent = artwork.medium;
 
   // Add rotation controls
   const controlsContainer = document.createElement("div");
@@ -815,7 +801,7 @@ function renderComments(artwork) {
     commentList.innerHTML = `
             <div class="no-comments">
                 <i class="fas fa-comment-slash"></i>
-                <p>Coming Soon</p>
+                <p>None</p>
             </div>
         `;
   }
